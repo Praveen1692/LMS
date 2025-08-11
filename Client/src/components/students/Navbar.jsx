@@ -1,9 +1,13 @@
 import React from "react";
-
+import { assets } from "../../assets/assets";
 function Navbar() {
   return (
     <div>
-      <h1>Navbar</h1>
+      <img
+        src={assets.logo}
+        alt="Logo"
+        className="w-28 lg:w-32 cursor-pointer"
+      />
     </div>
   );
 }
