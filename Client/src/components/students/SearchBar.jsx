@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { assets } from "../../assets/assets";
+import { useNavigate } from "react-router-dom";
 
 function SearchBar() {
+  const [input, setInput] = useState(null);
+
+  const navigate = useNavigate();
+
+  const onSearchHandler = (e) => {
+    e.preventDefault();
+    navigate("/course-list/" + input);
+  };
   return (
-    <form className="max-w-xl w-full md:h-14 h-12 flex items-center bg-white border border-gray-500/12 rounded">
+    <form
+      onSubmit={onSearchHandler}
+      className="max-w-xl w-full md:h-14 h-12 flex items-center bg-white border border-gray-500/12 rounded"
+    >
       <img
         src={assets.search_icon}
         alt="search"
@@ -11,6 +23,8 @@ function SearchBar() {
       />
       <input
         type="text"
+        onChange={(e) => setInput(e.target.value)}
+        value={input}
         className="w-full h-full outline-none text-gray-500/80"
         placeholder="Search for courses"
       />
