@@ -1,20 +1,39 @@
 import { createContext, useEffect, useState } from "react";
 import { dummyCourses } from "../assets/assets";
+import { useNavigate } from "react-router-dom";
 
 export const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
   const [allCourses, setAllCourses] = useState([]);
 
+  const navigate = useNavigate();
+
   // Fetch All Courese
   const fetchAllCourse = async () => {
     setAllCourses(dummyCourses);
   };
+
+  // function to calculate avarage rating for courses
+  const calculatingRating = (course) => {
+    if (course.courseRatings.length === 0) {
+      return 0;
+    }
+
+    let totalRating = 0;
+    course.courseRatings.forEach((rating) => {
+      totalRating += rating.rating;
+    });
+    return totalRating / course.courseRatings.length;
+  };
+
   useEffect(() => {
     fetchAllCourse();
   }, []);
   const value = {
     allCourses,
+    navigate,
+    calculatingRating
   };
 
   return (
