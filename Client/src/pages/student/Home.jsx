@@ -2,6 +2,8 @@ import React from "react";
 import Hero from "../../components/students/Hero";
 import Companies from "../../components/students/Companies";
 import CourseSection from "../../components/students/CourseSection";
+import TestimonialSection from "../../components/students/TestimonialSection";
+import CallToAction from "../../components/students/CallToAction";
 
 function Home() {
   return (
@@ -9,6 +11,8 @@ function Home() {
       <Hero />
       <Companies />
       <CourseSection />
+      <TestimonialSection />
+      <CallToAction />
     </div>
   );
 }
