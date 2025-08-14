@@ -1,12 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import SearchBar from "../../components/students/SearchBar";
 import { useParams } from "react-router-dom";
+import CourseCard from "../../components/students/CourseCard";
+import { assets } from "../../assets/assets";
+import Footer from "../../components/students/Footer";
 
 function CourseList() {
-  const { navigate } = useContext(AppContext);
+  const { navigate, allCourses } = useContext(AppContext);
 
+  const [filteredCourse, setFilteredCourse] = useState([]);
   const { input } = useParams();
+
+  useEffect(() => {
+    if (allCourses && allCourses.length > 0) {
+      const tempCourses = allCourses.slice();
+
+      input
+        ? setFilteredCourse(
+            tempCourses.filter((item) =>
+              item.courseTitle.toLowerCase().includes(input.toLowerCase())
+            )
+          )
+        : setFilteredCourse(tempCourses);
+    }
+  }, [allCourses, input]);
+
   return (
     <>
       <div className="relative md:px-36 px-8 pt-20 text-left">
@@ -27,7 +46,27 @@ function CourseList() {
           </div>
           <SearchBar data={input} />
         </div>
+
+        {input && input.length > 0 ? (
+          <div className="cursor-pointer inline-flex items-center gap-4 px-4 py-2 border mt-8 -mb-8 text-gray-600">
+            <p className="text-2xl font-semibold text-gray-800">{input}</p>
+            <img
+              src={assets.cross_icon}
+              alt="cross"
+              onClick={() => navigate("/course-list")}
+            />
+          </div>
+        ) : (
+          <div></div>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-16 gap-3 px-2 md:px-0">
+          {filteredCourse.map((course, index) => (
+            <CourseCard key={index} course={course} />
+          ))}
+        </div>
       </div>
+      <Footer />
     </>
   );
 }
