@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { dummyCourses } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
+import humanizeDuration from "humanize-duration";
 
 export const AppContext = createContext();
 
@@ -38,6 +39,44 @@ export const AppContextProvider = (props) => {
     calculatingRating,
     isEducator,
     setIsEducator,
+    calculateChapterTime,
+    calculateCourseDuration,
+    calculateTotalLecture,
+  };
+
+  // function to calculate course chapter time;
+  const calculateChapterTime = (course) => {
+    let totalChapterTime = 0;
+    course.chapterContent.map(
+      (lecture) => (totalChapterTime += lecture.lectureDuration)
+    );
+    return humanizeDuration(totalChapterTime * 60 * 1000, {
+      units: ["h", "m"],
+    });
+  };
+
+  // function to calculate courseDuration
+  const calculateCourseDuration = (course) => {
+    let totalCourseDuration = 0;
+    course.courseContent.map((chapter) =>
+      chapter.chapterContent.map(
+        (lecture) => (totalCourseDuration += lecture.lectureDuration)
+      )
+    );
+    return humanizeDuration(totalCourseDuration * 60 * 1000, {
+      units: ["h", "m"],
+    });
+  };
+
+  // function to calcuate total no. of lecture in this course
+  const calculateTotalLecture = (course) => {
+    let totalLecture = 0;
+    course.courseContent.forEach((chapter) => {
+      if (Array.isArray(chapter.chapterContent)) {
+        totalLecture += chapter.chapterContent.length;
+      }
+    });
+    return totalLecture;
   };
 
   return (
