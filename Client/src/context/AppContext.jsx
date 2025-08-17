@@ -17,32 +17,6 @@ export const AppContextProvider = (props) => {
     setAllCourses(dummyCourses);
   };
 
-  // function to calculate avarage rating for courses
-  const calculatingRating = (course) => {
-    if (course.courseRatings.length === 0) {
-      return 0;
-    }
-
-    let totalRating = 0;
-    course.courseRatings.forEach((rating) => {
-      totalRating += rating.rating;
-    });
-    return totalRating / course.courseRatings.length;
-  };
-
-  useEffect(() => {
-    fetchAllCourse();
-  }, []);
-  const value = {
-    allCourses,
-    navigate,
-    calculatingRating,
-    isEducator,
-    setIsEducator,
-    calculateChapterTime,
-    calculateCourseDuration,
-    calculateTotalLecture,
-  };
 
   // function to calculate course chapter time;
   const calculateChapterTime = (course) => {
@@ -78,6 +52,35 @@ export const AppContextProvider = (props) => {
     });
     return totalLecture;
   };
+
+  // function to calculate avarage rating for courses
+  const calculatingRating = (course) => {
+    if (course.courseRatings.length === 0) {
+      return 0;
+    }
+
+    let totalRating = 0;
+    course.courseRatings.forEach((rating) => {
+      totalRating += rating.rating;
+    });
+    return totalRating / course.courseRatings.length;
+  };
+
+  useEffect(() => {
+    fetchAllCourse();
+  }, []);
+  const value = {
+    allCourses,
+    navigate,
+    calculatingRating,
+    isEducator,
+    setIsEducator,
+    calculateChapterTime,
+    calculateCourseDuration,
+    calculateTotalLecture,
+  };
+
+  
 
   return (
     <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
