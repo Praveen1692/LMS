@@ -101,18 +101,18 @@ function CourseDetails() {
                     </p>
                   </div>
 
-                  <div>
-                    <ul>
+                  <div className="overflow-hidden transition-all duration-300 max-h-96">
+                    <ul className="list-disc md:pl-10 pl-4 pr-4 py-2 text-gray-600 border-t border-gray-300">
                       {chapter.chapterContent.map((lecture, index) => (
-                        <li key={index}>
+                        <li key={index} className="flex items-start gap-2 py-1">
                           <img
                             src={assets.play_icon}
                             alt="play_icon"
                             className="w-4 h-4 mt-1"
                           />
-                          <div>
+                          <div className="flex items-center justify-between w-full text-gray-800 text-xs md:text-default">
                             <p>{lecture.lectureTitle}</p>
-                            <div>
+                            <div className="flex gap-2">
                               {lecture.isPreviewFree && <p>Preview</p>}
                               <p>
                                 {humanizeDuration(
