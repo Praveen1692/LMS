@@ -101,7 +101,13 @@ function CourseDetails() {
                     onClick={() => toggleSection(index)}
                   >
                     <div className="flex items-center gap-2">
-                      <img src={assets.down_arrow_icon} alt="arrow_icon" />
+                      <img
+                        src={assets.down_arrow_icon}
+                        alt="arrow_icon"
+                        className={`transform transition-transform  ${
+                          openSections[index] ? "rotate-90" : ""
+                        }`}
+                      />
                       <p className="font-medium md:text-base text-sm">
                         {chapter.chapterTitle}
                       </p>
@@ -113,7 +119,9 @@ function CourseDetails() {
                   </div>
 
                   <div
-                    className={`overflow-hidden transition-all duration-300 ${openSections[index] ? 'max-h-96' :'max-h-0'} `}
+                    className={`overflow-hidden transition-all duration-300 ${
+                      openSections[index] ? "max-h-96" : "max-h-0"
+                    } `}
                   >
                     <ul className="list-disc md:pl-10 pl-4 pr-4 py-2 text-gray-600 border-t border-gray-300">
                       {chapter.chapterContent.map((lecture, index) => (
@@ -147,11 +155,67 @@ function CourseDetails() {
               ))}
             </div>
           </div>
+
+          {/* Course Description */}
+
+          <div className="py-20 text-sm md:text-default">
+            <h3 className="text-xl font-semibold text-gray-800">
+              Course Description
+            </h3>
+            <p
+              className="pt-3 rich-text"
+              dangerouslySetInnerHTML={{
+                __html: courseData.courseDescription,
+              }}
+            ></p>
+          </div>
         </div>
 
         {/* Right Column */}
 
-        <div></div>
+        <div className="max-w-full z-10 shadow rounded-t md:rounded-none overflow-hidden bg-white min-w-[300px] sm:min-w-[420px]">
+          <img src={courseData?.courseThumbnail} alt="course_thumbnail" />
+
+          <div className="p-5">
+            <div className="flex items-center gap-2">
+              <img
+                src={assets.time_left_clock_icon}
+                alt="time"
+                className="w-3.5"
+              />
+              <p className="text-red-500">
+                <span className="font-medium">5 days</span> left at this price
+              </p>
+            </div>
+
+            <div className="flex gap-3 items-center pt-2">
+              <p className="text-gray-800 md:text-4xl text-2xl font-semibold">
+                {courseData?.coursePrice}
+              </p>
+            </div>
+
+            <div className="flex items-center text-sm md:text-default gap-4 pt-2 md:pt-4 text-gray-500">
+              <div className="flex items-center gap-1">
+                <img src={assets.star} alt="start icon" />
+                <p>{calculatingRating(courseData)}</p>
+              </div>
+
+              <div className="h-4 w-px bg-gray-500/40"></div>
+
+              <div className="flex items-center gap-1">
+                <img src={assets.time_clock_icon} alt="start icon" />
+                <p>{calculateCourseDuration(courseData)}</p>
+              </div>
+
+              <div className="h-4 w-px bg-gray-500/40"></div>
+
+              <div className="flex items-center gap-1">
+                <img src={assets.time_clock_icon} alt="start icon" />
+                <p>{calculateTotalLecture(courseData)}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   ) : (
