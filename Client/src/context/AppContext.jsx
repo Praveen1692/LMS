@@ -9,14 +9,19 @@ export const AppContextProvider = (props) => {
   const [allCourses, setAllCourses] = useState([]);
 
   const [isEducator, setIsEducator] = useState(true);
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
 
   const navigate = useNavigate();
+
+  // fetch user enrolled courses
+  const fetchUserEnrolledCourses = async () => {
+    
+  };
 
   // Fetch All Courese
   const fetchAllCourse = async () => {
     setAllCourses(dummyCourses);
   };
-
 
   // function to calculate course chapter time;
   const calculateChapterTime = (course) => {
@@ -79,8 +84,6 @@ export const AppContextProvider = (props) => {
     calculateCourseDuration,
     calculateTotalLecture,
   };
-
-  
 
   return (
     <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
