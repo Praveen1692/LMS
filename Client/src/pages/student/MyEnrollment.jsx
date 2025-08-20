@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { useNavigate } from "react-router-dom";
+import { Line } from "rc-progress";
+import Footer from "../../components/students/Footer";
 
 function MyEnrollment() {
   const { enrolledCourses, calculateCourseDuration } = useContext(AppContext);
@@ -44,6 +46,12 @@ function MyEnrollment() {
                   />
                   <div className="flex-1">
                     <p className="mb-1 max-sm:text-sm">{course.courseTitle}</p>
+
+                    <Line
+                      strokeWidth={2}
+                      percent={50}
+                      className="bg-gray-300 rounded-full   "
+                    />
                   </div>
                 </td>
 
@@ -70,6 +78,8 @@ function MyEnrollment() {
           </tbody>
         </table>
       </div>
+
+      <Footer />
     </>
   );
 }
